@@ -34,7 +34,7 @@
 					}
 					
 					console.debug(_loadedSize);
-					// ‚±‚ê‚Åæ‚ê‚È‚¢‚©‚ç‰º‚Éi‚ß‚È‚¢
+					// _loadedSizeãŒå–ã‚Œãªã„ã®ã§ã“ã“ã‹ã‚‰ä¸‹ã«ã™ã™ã‚ãªã„
 					
 					body.append(
 						__this
