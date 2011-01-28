@@ -1,0 +1,110 @@
+@charset "utf-8";
+
+@import url("share/default.css");
+@import url("share/fonts.css");
+
+/* Clearfix
+=================================*/
+
+.clearfix:after {
+ content: "."; 
+ display: block; 
+ height: 0; 
+ clear: both; 
+ visibility: hidden;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+/* Hide from Mac IE \*/
+.clearfix {
+	display: block;
+}
+* html .clearfix {
+	height: 1%;
+}
+/* Hide from Mac IE */
+
+/* =========================================
+*  COMMON
+* ========================================= */
+
+html {
+	height: 100%;
+}
+
+body {
+	padding: 1em;
+	height: 100%;
+	color: #252525;
+	background: #ccc;
+	font-family: Helvetica;
+}
+
+p.note {
+	margin: 0 auto;
+	width: 830px;
+	padding: 0 0 .5em;
+	text-align: right;
+}
+p.attention {
+	margin: 0 auto;
+	width: 600px;
+	padding: 0 0 .5em;
+	font-size: 93%;
+	color: #f60;
+}
+
+div#alert {
+	margin: 0 auto 1em;
+	border: solid #f60 3px;
+	padding: 5px 10px;
+	width: 574px;
+}
+
+h1 {
+	text-align: center;
+}
+h1:first-letter {
+}
+
+	h1 a {
+	}
+
+a {
+	color: #00f;
+	text-decoration: underline;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+/* =========================================
+*  FRAME
+* ========================================= */
+
+div.pagebody {
+	margin: 0 auto 1em;
+	padding: 15px;
+	width: 800px;
+	background: #fafafa;
+}
+
+h2 {
+	margin-top: 1em;
+	border: solid #ccc 1px;
+	border-top: none;
+	border-right: none;
+	border-left-width: 5px;
+	padding: .3em .7em;
+	font-size: 116%;
+}
+	
+p.copy {
+	border-top: solid #ccc 1px;
+	padding: 0 0 3em;
+	text-align: center;
+}
