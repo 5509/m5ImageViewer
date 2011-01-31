@@ -11,6 +11,19 @@
  */
  
  ;(function($) {
+ 	// ImgLoad
+ 	$.fn.m5ImgLoad = function(options, callback) {
+		if ( typeof options != "function" ) {
+			var c = $.extend({
+			}, options);
+		}
+		
+		var _img = $(this).get(0);
+		(function() {
+			
+		})();
+	}
+ 
  	$.fn.m5ImageViewer = function(options) {
 		var body = $("body");
 		return $(this).each(function() {
