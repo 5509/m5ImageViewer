@@ -1,5 +1,5 @@
 /**
- * exValidation
+ * m5ImageViewer
  *
  * @version      0.1
  * @author       nori (norimania@gmail.com)
@@ -12,7 +12,7 @@
  
  ;(function($) {
  	// ImgLoad
- 	$.fn.m5ImgLoad = function(options, callback) {
+ 	/*$.fn.m5ImgLoad = function(options, callback) {
 		if ( typeof options != "function" ) {
 			var c = $.extend({
 			}, options);
@@ -22,7 +22,7 @@
 		(function() {
 			
 		})();
-	}
+	}*/
  
  	$.fn.m5ImageViewer = function(options) {
 		var body = $("body");
@@ -39,35 +39,64 @@
 				_loadedSize = {};
 				
 			_this.click(function() {
+				$("img.m5ImgViewerPrev")
+					.animate({
+						width: _size.width,
+						height: _size.height,
+						opacity: 0
+					}, {
+						duration: 400,
+						easing: "swing",
+						complete: function() {
+							$(this).remove();
+						}
+					});
+				
 				$("<img src='" + _this.attr("href") + "'/>").load(function() {
 					var __this = $(this);
 					_loadedSize = {
-						width: __this.width(),
-						height: __this.height()
+						width: __this.attr("width"),
+						height: __this.attr("height")
 					}
 					
 					console.debug(_loadedSize);
 					// _loadedSizeが取れないのでここから下にすすめない
 					
-					body.append(
+					body
+						.append(
+							__this
+								.addClass("m5ImgViewerPrev")
+								.css({
+									width: _size.width,
+									height: _size.height,
+									position: "absolute",
+									top: _size.top,
+									left: _size.left,
+									opacity: 0
+								})
+								.animate({
+									width: _loadedSize.width,
+									height: _loadedSize.height,
+									opacity: 1
+								}, {
+									duration: 400,
+									easing: "swing"
+								})
+					)
+					.click(function() {
 						__this
-							.css({
+							.animate({
 								width: _size.width,
 								height: _size.height,
-								position: "absolute",
-								top: _size.top,
-								left: _size.left,
 								opacity: 0
-							})
-							.animate({
-								width: _loadedSize.width,
-								height: _loadedSize.height,
-								opacity: 1
 							}, {
 								duration: 400,
-								easing: "swing"
+								easing: "swing",
+								complete: function() {
+									__this.remove();
+								}
 							})
-					)
+					})
 				});
 				
 				return false;
