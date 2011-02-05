@@ -25,7 +25,16 @@
 	}*/
  
  	$.fn.m5ImageViewer = function(options) {
-		var body = $("body");
+		var body = $("body"),
+			loading = $([
+				"<div id='m5ImageViewerLoading' style='display: none'>",
+					"<div id='m5ImageViewerLoadingIcon'></div>",
+				"</div>"
+			].join(""));
+		
+		// loadingを追加してローディングアイコンを読み込んでおく
+		body.append(loading);
+			
 		return $(this).each(function() {
 			var _this = $(this),
 				_img = _this.find("img"),
@@ -39,6 +48,18 @@
 				_loadedSize = {};
 				
 			_this.click(function() {
+			
+				// ローディングの表示
+				loading
+					.css({
+						display: "block",
+						width: _size.width,
+						height: _size.height,
+						position: "absolute",
+						top: _pos.top,
+						left: _pos.left
+					})
+				
 				$("img.m5ImgViewerPrev")
 					.animate({
 						width: _size.width,
@@ -53,6 +74,10 @@
 					});
 				
 				$("<img src='" + _this.attr("href") + "'/>").load(function() {
+				
+					// ローディングの非表示
+					loading.css("display", "none");
+				
 					var __this = $(this);
 					_loadedSize = {
 						width: __this.attr("width"),

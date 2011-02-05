@@ -1,0 +1,19 @@
+@charset "utf-8";
+
+#m5ImageViewerLoading {
+}
+
+#m5ImageViewerLoadingIcon {
+	margin: -32px 0 0 -32px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	width: 64px;
+	height: 64px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background: #000 url(../images/m5imageviewerloading.gif) no-repeat center center;
+	opacity: .8;
+	filter: alpha(opacity=80);
+}
