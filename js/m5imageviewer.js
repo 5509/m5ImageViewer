@@ -10,9 +10,9 @@
  * 2010-01-27 23:50
  */
  
- ;(function($) {
- 	// ImgLoad
- 	/*$.fn.m5ImgLoad = function(options, callback) {
+;(function($) {
+	// ImgLoad
+	/*$.fn.m5ImgLoad = function(options, callback) {
 		if ( typeof options != "function" ) {
 			var c = $.extend({
 			}, options);
@@ -23,9 +23,12 @@
 			
 		})();
 	}*/
- 
- 	$.fn.m5ImageViewer = function(options) {
+
+	$.fn.m5ImageViewer = function(options) {
 		var body = $("body"),
+			c = $.extend({
+				side: "auto" // you can select either "right" or "left"
+			}, options),
 			loading = $([
 				"<div id='m5ImageViewerLoading' style='display: none'>",
 					"<div id='m5ImageViewerLoadingIcon'></div>",
@@ -58,7 +61,7 @@
 						position: "absolute",
 						top: _pos.top,
 						left: _pos.left
-					})
+					});
 				
 				$("img.m5ImgViewerPrev")
 					.animate({
@@ -107,21 +110,21 @@
 									duration: 400,
 									easing: "swing"
 								})
-					)
-					.click(function() {
-						__this
-							.animate({
-								width: _size.width,
-								height: _size.height,
-								opacity: 0
-							}, {
-								duration: 400,
-								easing: "swing",
-								complete: function() {
-									__this.remove();
-								}
-							})
-					})
+						)
+						.click(function() {
+							__this
+								.animate({
+									width: _size.width,
+									height: _size.height,
+									opacity: 0
+								}, {
+									duration: 400,
+									easing: "swing",
+									complete: function() {
+										__this.remove();
+									}
+								})
+						})
 				});
 				
 				return false;
@@ -129,4 +132,4 @@
 			
 		});
 	}
- })(jQuery);
+})(jQuery);
