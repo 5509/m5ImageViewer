@@ -1,13 +1,13 @@
 /**
  * m5ImageViewer
  *
- * @version      0.1
+ * @version      1.0
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
  * @link         http://5509.me/log/m5imageviewer
  *
- * 2010-01-27 23:50
+ * 2010-02-09 03:05
  */
 
 if ( !window.console ) {
@@ -43,42 +43,27 @@ if ( !window.console ) {
 		})();
 	}
 
+	/**
+	 * m5ImgLoad
+	 */
 	$.fn.m5ImageViewer = function(options) {
 		var body = $("body"),
 			windowResized = false,
 			c = $.extend({
-					clientFit: true,
-					padding: 20,
-					side: "auto" // you can select either "right" or "left"
+					duration: 200
 				}, options),
-			returnClientSize = function() {
-					return {
-						x: document.body.clientWidth || document.documentElement.clientWidth,
-						y: document.body.clientHeight || document.documentElement.clientHeight
-					}
-				},
-			returnScrollTop = function() {
-					return {
-						y: document.body.scrollTop || document.documentElement.scrollTop,
-						x: document.body.scrollLeft || document.documentElement.scrollLeft
-					}
-				},
-			clientSize = returnClientSize(),
+			closeBtn = $("<div id='m5ImgViewerClose'></div>"),
 			loading = $([
-					"<div id='m5ImageViewerLoading' style='display: none'>",
-						"<div id='m5ImageViewerLoadingIcon'></div>",
+					"<div id='m5ImgViewerLoading' style='display: none'>",
+						"<div id='m5ImgViewerLoadingIcon'></div>",
 					"</div>"
 				].join(""));
 			
-		$(window).resize(function() {
-			// ブラウザがリサイズされたらサイズを更新しておく
-			clientSize = returnClientSize();
-			// windowがリサイズされたらtrueにしておく
-			windowResized = true;
-		});
-		
 		// loadingを追加してローディングアイコンを読み込んでおく
-		body.append(loading);
+		body.append(
+			loading,
+			closeBtn.hide()
+		);
 			
 		return $(this).each(function() {
 			var _this = $(this),
@@ -89,23 +74,17 @@ if ( !window.console ) {
 					height: _img.attr("offsetHeight"),
 					top: _pos.top,
 					left: _pos.left
-				},
-				_animationTo = {},
-				_loadedSize = {};
+				};
 				
 			_this.click(function() {
-			
-				if ( c.clientFit ) {
-					
+				_pos = _img.offset();
+				_size = {
+					width: _img.attr("offsetWidth"),
+					height: _img.attr("offsetHeight"),
+					top: _pos.top,
+					left: _pos.left
 				}
-			
-				if ( windowResized ) {
-					_pos = _img.offset();
-					
-					_size.top = _pos.top;
-					_size.left = _pos.left;
-				}
-							
+				
 				// ローディングの表示
 				loading
 					.css({
@@ -117,13 +96,14 @@ if ( !window.console ) {
 						left: _pos.left
 					});
 				
+				closeBtn.fadeOut("fast");
 				$("img.m5ImgViewerPrev")
 					.animate({
 						width: _size.width,
 						height: _size.height,
 						opacity: 0
 					}, {
-						duration: 400,
+						duration: c.duration,
 						easing: "swing",
 						complete: function() {
 							$(this).remove();
@@ -140,9 +120,6 @@ if ( !window.console ) {
 						width: __this.attr("width"),
 						height: __this.attr("height")
 					}
-					
-					//console.debug(_loadedSize);
-					// _loadedSizeが取れないのでここから下にすすめない
 					
 					body
 						.append(
@@ -161,18 +138,27 @@ if ( !window.console ) {
 									height: _loadedSize.height,
 									opacity: 1
 								}, {
-									duration: 400,
-									easing: "swing"
+									duration: c.duration,
+									easing: "swing",
+									complete: function() {
+										$("#m5ImgViewerClose")
+											.css({
+												top: _size.top,
+												left: _size.left
+											})
+											.fadeIn("fast");
+									}
 								})
 						)
 						.click(function() {
+							closeBtn.fadeOut("fast");
 							__this
 								.animate({
 									width: _size.width,
 									height: _size.height,
 									opacity: 0
 								}, {
-									duration: 400,
+									duration: c.duration,
 									easing: "swing",
 									complete: function() {
 										__this.remove();

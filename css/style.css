@@ -2,6 +2,7 @@
 
 @import url("share/default.css");
 @import url("share/fonts.css");
+@import url(http://fonts.googleapis.com/css?family=Copse);
 
 /* Clearfix
 =================================*/
@@ -36,17 +37,16 @@ html {
 }
 
 body {
-	padding: 1em;
 	height: 100%;
 	color: #252525;
-	background: #ccc;
+	background: url(../images/bg_glow.png) repeat;
 	font-family: Helvetica;
 }
 
 p.note {
 	margin: 0 auto;
-	width: 830px;
-	padding: 0 0 .5em;
+	width: 630px;
+	padding: 5px 0 .5em;
 	text-align: right;
 }
 p.attention {
@@ -65,20 +65,20 @@ div#alert {
 }
 
 h1 {
+	font-size: 3.5em;
+	font-family: "Copse", sans-serif;
 	text-align: center;
+	text-shadow: white 0 1px 0;
 }
-h1:first-letter {
-}
-
-	h1 a {
-	}
 
 a {
-	color: #00f;
-	text-decoration: underline;
+	color: #5B80C2;
+	font-weight: bold;
+	text-decoration: none;
 }
 
 a:hover {
+	color: #666;
 	text-decoration: none;
 }
 
@@ -89,8 +89,46 @@ a:hover {
 div.pagebody {
 	margin: 0 auto 1em;
 	padding: 15px;
-	width: 800px;
+	width: 600px;
 	background: #fafafa;
+	text-shadow: white 0 1px 0;
+	background: url(../images/dots.png) repeat-x,
+				-webkit-gradient(radial, center top, 300, center top, 0, from(hsla(0,0%,100%,0)), to(hsla(0,0%,100%,.7))),
+				-webkit-gradient(linear, left top, left 200, from(hsla(0,0%,100%,.2)), to(hsla(0,0%,100%,0)));
+	background: url(../images/dots.png) repeat-x,
+				-moz-radial-gradient(50% 0% 180deg, circle closest-corner, hsla(0,0%,100%,.7), hsla(0,0%,100%,0)),
+				-moz-linear-gradient(0% 25% 90deg, hsla(0,0%,100%,0), hsla(0,0%,100%,0.2) );
+	background: url(../images/dots.png) repeat-x,
+				-o-radial-gradient(50% 0% 180deg, circle closest-corner, hsla(0,0%,100%,.7), hsla(0,0%,100%,0)),
+				-o-linear-gradient(0% 25% 90deg, hsla(0,0%,100%,0), hsla(0,0%,100%,0.2) );
+	background: url(../images/dots.png) repeat-x,
+				radial-gradient(50% 0% 180deg, circle closest-corner, hsla(0,0%,100%,.7), hsla(0,0%,100%,0)),
+				linear-gradient(0% 25% 90deg, hsla(0,0%,100%,0), hsla(0,0%,100%,0.2) );
+}
+
+div.pagebody div.txt {
+	padding-top: 2em;
+}
+div.pagebody div.txt p {
+	padding-bottom: 1em;
+	text-justify: distribute;
+}
+
+div.pagebody p.photo {
+}
+div.pagebody p.right {
+	float: right;
+	padding: 0 0 1em 1em;
+}
+div.pagebody p.left {
+	float: left;
+	padding: 0 1em 1em 0;
+}
+
+div.pagebody p.photo span.caption {
+	padding-top: 5px;
+	display: block;
+	font-size: 77%;
 }
 
 h2 {
@@ -104,7 +142,7 @@ h2 {
 }
 	
 p.copy {
-	border-top: solid #ccc 1px;
 	padding: 0 0 3em;
 	text-align: center;
+	text-shadow: white 0 1px 0;
 }
