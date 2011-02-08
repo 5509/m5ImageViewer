@@ -9,31 +9,73 @@
  *
  * 2010-01-27 23:50
  */
+
+if ( !window.console ) {
+	window.console = {
+		log: function() {},
+		debug: function() {}
+	}
+}
  
 ;(function($) {
-	// ImgLoad
-	/*$.fn.m5ImgLoad = function(options, callback) {
-		if ( typeof options != "function" ) {
-			var c = $.extend({
-			}, options);
-		}
-		
-		var _img = $(this).get(0);
-		(function() {
+	/**
+	 * m5ImgLoad
+	 *
+	 * @author       nori (norimania@gmail.com)
+	 * @copyright    5509 (http://5509.me/)
+	 * @license      The MIT License
+	 * @link         https://github.com/5509/m5ImgLoad
+	 *
+	 */
+ 	$.fn.m5ImgLoad = function(callback, interval) {
+		var _this = this,
+			_img = $(this).get(0),
+			newImg = new Image();
 			
+		newImg.src = _img.src;
+		
+		(function() {
+			if ( newImg.complete ) {
+				callback.call($(newImg));
+				return;
+			}
+			setTimeout(arguments.callee, interval || 20);
 		})();
-	}*/
+	}
 
 	$.fn.m5ImageViewer = function(options) {
 		var body = $("body"),
+			windowResized = false,
 			c = $.extend({
-				side: "auto" // you can select either "right" or "left"
-			}, options),
+					clientFit: true,
+					padding: 20,
+					side: "auto" // you can select either "right" or "left"
+				}, options),
+			returnClientSize = function() {
+					return {
+						x: document.body.clientWidth || document.documentElement.clientWidth,
+						y: document.body.clientHeight || document.documentElement.clientHeight
+					}
+				},
+			returnScrollTop = function() {
+					return {
+						y: document.body.scrollTop || document.documentElement.scrollTop,
+						x: document.body.scrollLeft || document.documentElement.scrollLeft
+					}
+				},
+			clientSize = returnClientSize(),
 			loading = $([
-				"<div id='m5ImageViewerLoading' style='display: none'>",
-					"<div id='m5ImageViewerLoadingIcon'></div>",
-				"</div>"
-			].join(""));
+					"<div id='m5ImageViewerLoading' style='display: none'>",
+						"<div id='m5ImageViewerLoadingIcon'></div>",
+					"</div>"
+				].join(""));
+			
+		$(window).resize(function() {
+			// ブラウザがリサイズされたらサイズを更新しておく
+			clientSize = returnClientSize();
+			// windowがリサイズされたらtrueにしておく
+			windowResized = true;
+		});
 		
 		// loadingを追加してローディングアイコンを読み込んでおく
 		body.append(loading);
@@ -48,10 +90,22 @@
 					top: _pos.top,
 					left: _pos.left
 				},
+				_animationTo = {},
 				_loadedSize = {};
 				
 			_this.click(function() {
 			
+				if ( c.clientFit ) {
+					
+				}
+			
+				if ( windowResized ) {
+					_pos = _img.offset();
+					
+					_size.top = _pos.top;
+					_size.left = _pos.left;
+				}
+							
 				// ローディングの表示
 				loading
 					.css({
@@ -76,7 +130,7 @@
 						}
 					});
 				
-				$("<img src='" + _this.attr("href") + "'/>").load(function() {
+				$("<img src='" + _this.attr("href") + "'/>").m5ImgLoad(function() {
 				
 					// ローディングの非表示
 					loading.css("display", "none");
@@ -87,7 +141,7 @@
 						height: __this.attr("height")
 					}
 					
-					console.debug(_loadedSize);
+					//console.debug(_loadedSize);
 					// _loadedSizeが取れないのでここから下にすすめない
 					
 					body
