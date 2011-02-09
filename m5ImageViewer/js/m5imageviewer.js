@@ -56,7 +56,7 @@
 	}	
 
 	/**
-	 * m5ImgLoad
+	 * m5ImageViewer
 	 */
 	$.fn.m5ImageViewer = function(options) {
 		var body = $("body"),
