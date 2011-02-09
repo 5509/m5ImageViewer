@@ -1,7 +1,7 @@
 /**
  * m5ImageViewer
  *
- * @version      1.0
+ * @version      1.1
  * @author       nori (norimania@gmail.com)
  * @copyright    5509 (http://5509.me/)
  * @license      The MIT License
@@ -9,14 +9,6 @@
  *
  * 2010-02-09 03:05
  */
-
-if ( !window.console ) {
-	window.console = {
-		log: function() {},
-		debug: function() {}
-	}
-}
- 
 ;(function($) {
 	/**
 	 * m5ImgLoad
@@ -42,6 +34,26 @@ if ( !window.console ) {
 			setTimeout(arguments.callee, interval || 20);
 		})();
 	}
+	
+	/**
+	 * exShowHide
+	 */
+	$.fn.exShow = function(duration) {
+		if (!$.support.opacity) {
+			$(this).show();
+		} else {
+			$(this).fadeIn(duration);
+		}
+		return this;
+	}
+	$.fn.exHide = function(duration) {
+		if (!$.support.opacity) {
+			$(this).hide();
+		} else {
+			$(this).fadeOut(duration);
+		}
+		return this;
+	}	
 
 	/**
 	 * m5ImgLoad
@@ -52,7 +64,8 @@ if ( !window.console ) {
 			c = $.extend({
 					duration: 200
 				}, options),
-			closeBtn = $("<div id='m5ImgViewerClose'></div>"),
+			closeBtn = $("<div id='m5ImgViewerClose' style='display: none'></div>"),
+			clickBlocker = $("<div id='m5ImgViewerBlocker' style='display: none'></div>"),
 			loading = $([
 					"<div id='m5ImgViewerLoading' style='display: none'>",
 						"<div id='m5ImgViewerLoadingIcon'></div>",
@@ -61,8 +74,9 @@ if ( !window.console ) {
 			
 		// loadingを追加してローディングアイコンを読み込んでおく
 		body.append(
+			clickBlocker,
 			loading,
-			closeBtn.hide()
+			closeBtn
 		);
 			
 		return $(this).each(function() {
@@ -85,6 +99,37 @@ if ( !window.console ) {
 					left: _pos.left
 				}
 				
+				clickBlocker
+					.css({
+						display: "block",
+						width: document.body.clientWidth || document.documentElement.clientWidth,
+						height: document.body.clientHeight || document.documentElement.clientHeight,
+						position: "fixed",
+						top: 0,
+						left: 0
+					});
+					
+				$("#m5ImgViewerClose, #m5ImgViewerBlocker")
+					.one("click", function() {
+						
+						$("#m5ImgViewerClose, #m5ImgViewerBlocker").unbind("click");
+						
+						clickBlocker.css("display", "none");
+						closeBtn.exHide("fast");
+						$("img.m5ImgViewerPrev")
+							.animate({
+								width: _size.width,
+								height: _size.height,
+								opacity: 0
+							}, {
+								duration: c.duration,
+								easing: "swing",
+								complete: function() {
+									$(this).remove();
+								}
+							})
+					})
+				
 				// ローディングの表示
 				loading
 					.css({
@@ -94,20 +139,6 @@ if ( !window.console ) {
 						position: "absolute",
 						top: _pos.top,
 						left: _pos.left
-					});
-				
-				closeBtn.fadeOut("fast");
-				$("img.m5ImgViewerPrev")
-					.animate({
-						width: _size.width,
-						height: _size.height,
-						opacity: 0
-					}, {
-						duration: c.duration,
-						easing: "swing",
-						complete: function() {
-							$(this).remove();
-						}
 					});
 				
 				$("<img src='" + _this.attr("href") + "'/>").m5ImgLoad(function() {
@@ -146,25 +177,10 @@ if ( !window.console ) {
 												top: _size.top,
 												left: _size.left
 											})
-											.fadeIn("fast");
+											.exShow("fast");
 									}
 								})
-						)
-						.click(function() {
-							closeBtn.fadeOut("fast");
-							__this
-								.animate({
-									width: _size.width,
-									height: _size.height,
-									opacity: 0
-								}, {
-									duration: c.duration,
-									easing: "swing",
-									complete: function() {
-										__this.remove();
-									}
-								})
-						})
+						);
 				});
 				
 				return false;
