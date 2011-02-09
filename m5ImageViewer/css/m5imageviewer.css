@@ -1,6 +1,10 @@
 @charset "utf-8";
 
-#m5ImageViewerLoading {
+#m5ImgViewerBlocker {
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: url(../images/blank.gif) repeat;
 }
 
 .m5ImgViewerPrev {

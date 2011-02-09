@@ -7,26 +7,8 @@
 /* Clearfix
 =================================*/
 
-.clearfix:after {
- content: "."; 
- display: block; 
- height: 0; 
- clear: both; 
- visibility: hidden;
-}
-
-.clearfix {
-	display: inline-block;
-}
-
-/* Hide from Mac IE \*/
-.clearfix {
-	display: block;
-}
-* html .clearfix {
-	height: 1%;
-}
-/* Hide from Mac IE */
+div.pagebody div.txt { /zoom : 1; }
+div.pagebody div.txt:after { content : ''; display : block; clear : both; height:0; }
 
 /* =========================================
 *  COMMON

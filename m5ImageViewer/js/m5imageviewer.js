@@ -102,10 +102,7 @@
 					.css({
 						display: "block",
 						width: document.body.clientWidth || document.documentElement.clientWidth,
-						height: document.body.clientHeight || document.documentElement.clientHeight,
-						position: "fixed",
-						top: 0,
-						left: 0
+						height: document.body.clientHeight || document.documentElement.clientHeight
 					});
 					
 				$("#m5ImgViewerClose, #m5ImgViewerBlocker")
