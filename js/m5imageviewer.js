@@ -72,7 +72,6 @@
 					"</div>"
 				].join(""));
 			
-		// loadingを追加してローディングアイコンを読み込んでおく
 		body.append(
 			clickBlocker,
 			loading,
@@ -130,7 +129,6 @@
 							})
 					})
 				
-				// ローディングの表示
 				loading
 					.css({
 						display: "block",
@@ -142,8 +140,6 @@
 					});
 				
 				$("<img src='" + _this.attr("href") + "'/>").m5ImgLoad(function() {
-				
-					// ローディングの非表示
 					loading.css("display", "none");
 				
 					var __this = $(this);
