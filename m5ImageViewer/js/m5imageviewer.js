@@ -7,7 +7,7 @@
  * @license      The MIT License
  * @link         http://5509.me/log/m5imageviewer
  *
- * 2010-02-09 03:05
+ * 2010-02-12 16:05
  */
 ;(function($) {
 	/**
@@ -77,8 +77,8 @@
 			loading,
 			closeBtn
 		);
-			
-		return $(this).each(function() {
+		
+		return this.each(function() {
 			var _this = $(this),
 				_img = _this.find("img"),
 				_pos = _img.offset(),
